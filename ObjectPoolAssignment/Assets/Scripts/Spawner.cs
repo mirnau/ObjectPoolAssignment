@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour
         Vector3 direction = Random.insideUnitCircle.normalized;
 
         //Create an instance at that position and make it face the player
-        Instantiate(enemyPrefab, magnitude * (Quaternion.Euler(new Vector3(Random.Range(0, 360), 0, 0)) * (new Vector3(direction.x, 0, direction.y))), Quaternion.identity);
+        Instantiate(enemyPrefab, magnitude * (Quaternion.Euler(Random.Range(0, 360), 0, 0) * new Vector3(direction.x, 0, direction.y)), Quaternion.identity);
 
     }
 

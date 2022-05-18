@@ -142,8 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RunScriptWithObjectPool: 0
   enemyPrefab: {fileID: 1927147967133011338, guid: 62ae95ae49d4b184b861efd2ba766036, type: 3}
-  playerPrefab: {fileID: 2685664661650222025, guid: 45417cba5eb4ee64fbc4b46b55e1ab85, type: 3}
-  minSpawnRadius: 5
+  playerPrefab: {fileID: 1851828582}
+  minSpawnRadius: 10
   maxSpawnRadius: 200
 --- !u!1 &519420028
 GameObject:
@@ -285,6 +285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45417cba5eb4ee64fbc4b46b55e1ab85, type: 3}
+--- !u!1 &1851828582 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2685664661650222025, guid: 45417cba5eb4ee64fbc4b46b55e1ab85, type: 3}
+  m_PrefabInstance: {fileID: 1339161541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2461022251503946797
 PrefabInstance:
   m_ObjectHideFlags: 0
