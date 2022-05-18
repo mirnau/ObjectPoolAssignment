@@ -143,7 +143,7 @@ MonoBehaviour:
   RunScriptWithObjectPool: 0
   enemyPrefab: {fileID: 1927147967133011338, guid: 62ae95ae49d4b184b861efd2ba766036, type: 3}
   playerPrefab: {fileID: 1851828582}
-  minSpawnRadius: 10
+  minSpawnRadius: 8
   maxSpawnRadius: 200
 --- !u!1 &519420028
 GameObject:
