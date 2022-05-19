@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [HideInInspector] public static Spawner instance;
+    
     [Header("Object Pool toggle on/off")]
     public bool RunScriptWithObjectPool;
+    public int objectPoolSize;
 
     [Header("Parameters")]
     public GameObject enemyPrefab;
@@ -13,10 +16,35 @@ public class Spawner : MonoBehaviour
     public float minSpawnRadius = 10;
     public float maxSpawnRadius = 200;
 
-    private void Update()
+    #region ObjectPool
+    //Dictionary because O(1) (dictionary uses hash)
+    [HideInInspector] public Dictionary<System.Int32, GameObject> objectPool;
+    #endregion
+
+    private void Awake()
     {
-        Spawn();
+        if (instance == null)
+            instance = this;
+
+        if (RunScriptWithObjectPool)
+            InitObjectPool();
     }
+
+    private void InitObjectPool()
+    {
+        //Initializing with capacity = size;
+        objectPool = new Dictionary<System.Int32, GameObject>(objectPoolSize);
+
+        //Leverage the instance ID that is assigned autmatically to all gameObjects
+        for (int i = 0; i < objectPoolSize; i++)
+        {
+            GameObject enemy = GetEnemyInstance();
+            enemy.SetActive(false);
+            objectPool.Add(enemy.GetInstanceID(), enemy);
+        }
+    }
+
+    private void Update() => Spawn();
 
     public void Spawn()
     {
@@ -32,21 +60,20 @@ public class Spawner : MonoBehaviour
 
     private void DontUseObjectPool()
     {
-        //Where on a line should we spawn?
-        float magnitude = Random.Range(minSpawnRadius, maxSpawnRadius);
-
-        //What direction does that line have?
-        Vector3 direction = Random.insideUnitCircle.normalized;
-        Vector3 position = magnitude * (Quaternion.Euler(Random.Range(0, 360), 0, 0) * new Vector3(direction.x, 0, direction.y));
+        //multiplies the distance (magnitude) from origo, with a random normalized direction vector
+        Vector3 position = Random.Range(minSpawnRadius, maxSpawnRadius) * Random.insideUnitCircle.normalized;
 
         //Create an instance at that position and make it face the player
         Instantiate(enemyPrefab, position, Quaternion.identity);
-
     }
 
     private void UseObjectPool()
     {
         throw new System.NotImplementedException();
     }
-    
+
+    private GameObject GetEnemyInstance()
+    { 
+        return Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
+    }
 }
